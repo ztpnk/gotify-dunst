@@ -1,0 +1,12 @@
+[Unit]
+Description=Gotify-Dunst
+After=network.target
+
+[Service]
+User=<user>
+WorkingDirectory=<your-path>/gotify-dunst/
+ExecStart=<your-path>/gotify-dunst/.env/bin/python main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
