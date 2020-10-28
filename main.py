@@ -8,7 +8,9 @@ domain = "push.example.com"
 token = "z2Uny92TZBzsukg"
 
 home = os.path.expanduser('~')
-path = "{}/.cache/gotify-dust".format(home)
+path = "{}/.cache/gotify-dunst".format(home)
+if not os.path.isdir(path):
+    os.mkdir(path)
 
 def get_picture(appid):
     imgPath = "{}/{}.jpg".format(path, appid)
