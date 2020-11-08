@@ -25,10 +25,7 @@ sudo make install
 ### Arch (Manjaro)
 
 ```bash
-sudo pacman -Syu make git libnotify python-websocket-client
-git clone https://github.com/ztpnk/gotify-dunst
-cd gotify-dunst
-sudo make install
+yay -S gotify-dunst-git
 ```
 
 ## Usage
