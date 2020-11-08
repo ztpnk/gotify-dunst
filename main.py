@@ -3,11 +3,31 @@ from urllib.request import urlopen
 import json
 import subprocess
 import os.path
+import configparser
 
-domain = "push.example.com"
-token = "z2Uny92TZBzsukg"
+
 
 home = os.path.expanduser('~')
+configpath = home+'/.config/gotify-dunst/gotify-dunst.conf'
+
+if not os.path.isfile(configpath):
+    from shutil import copyfile
+    from os import makedirs
+    makedirs(home+'/.config/gotify-dunst/',exist_ok=True)
+    copyfile('gotify-dunst.conf',configpath)
+
+config = configparser.ConfigParser()
+config.read(configpath)
+
+domain = config.get('server','domain',fallback=None)
+
+if domain in [ "push.example.com", None]:
+    print("Confiuration error. Make sure you have properly modified the configuration")
+    exit()
+
+token = config.get('server','token')
+
+
 path = "{}/.cache/gotify-dunst".format(home)
 if not os.path.isdir(path):
     os.mkdir(path)

@@ -1,6 +1,7 @@
 <h1 align="center">gotify-dunst</h1>
 
 ## Intro
+
 This is a simple script for receiving [Gotify](https://github.com/gotify/server) messages on a Linux Desktop via [dunst](https://dunst-project.org/).
 
 ## Features
@@ -12,14 +13,27 @@ This is a simple script for receiving [Gotify](https://github.com/gotify/server)
 
 ## Installation
 
-1. Clone this repo
-<code>git clone https://github.com/ztpnk/gotify-dunst && cd gotify-dunst</code>
-2. Create a python venv `python3 -m venv .env`
-3. Install python requirements
-<code>./.env/bin/pip install -r requirements.txt</code>
-4. Change the domain and token in main.py
-5. Test if it runs
-<code>./.env/bin/python main.py</code>
-6. Customize the gotify-dunst.service and copy it to /etc/systemd/system
-7. Start and enable the Systemd Unit
-<code>sudo systemd start gotify-dunst && sudo systemd enable gotify-dunst</code>
+### Debian (Ubuntu, Mint, etc.)
+
+```bash
+sudo apt install git make libnotify-bin python3-websocket
+git clone https://github.com/ztpnk/gotify-dunst
+cd gotify-dunst
+sudo make install
+```
+
+### Arch (Manjaro)
+
+```bash
+sudo pacman -Syu make git libnotify python-websocket-client
+git clone https://github.com/ztpnk/gotify-dunst
+cd gotify-dunst
+sudo make install
+```
+
+## Usage
+
+1. Run `systemctl --user enable --now gotify-dunst.service` (**no sudo**)
+2. Open `~/.config/gotify-dunst/gotify-dunst.conf` in your favorite text editor. Modify the domain to your instance of Gotify and modify the token to a client token you get from the Gotify web app.
+3. Run `systemctl --user restart gotify-dunst.service`.
+4. (optionally) You can check the status of the service with `systemctl --user status gotify-dunst.service`.

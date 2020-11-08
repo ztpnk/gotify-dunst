@@ -3,10 +3,9 @@ Description=Gotify-Dunst
 After=network.target
 
 [Service]
-User=<user>
-WorkingDirectory=<your-path>/gotify-dunst/
-ExecStart=<your-path>/gotify-dunst/.env/bin/python main.py
+WorkingDirectory=/usr/lib/gotify-dunst/
+ExecStart=/usr/bin/env python3 main.py
 Restart=always
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
