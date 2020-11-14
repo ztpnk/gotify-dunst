@@ -6,6 +6,7 @@ After=network.target
 WorkingDirectory=/usr/lib/gotify-dunst/
 ExecStart=/usr/bin/env python3 main.py
 Restart=always
+RestartSec=30
 
 [Install]
 WantedBy=default.target
