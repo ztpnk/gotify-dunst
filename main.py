@@ -1,5 +1,5 @@
 import websocket
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 import json
 import subprocess
 import os.path
@@ -37,12 +37,15 @@ def get_picture(appid):
     if os.path.isfile(path):
         return imgPath
     else:
-        r = json.loads(urlopen("https://{}/application?token={}".format(domain, token)).read())
+        req = Request("https://{}/application?token={}".format(domain, token))
+        req.add_header("User-Agent", "Mozilla/5.0")
+        r = json.loads(urlopen(req).read())
         for i in r:
             if i['id'] == appid:
                 with open(imgPath, "wb") as f:
-                    url = urlopen("https://{}/{}?token={}".format(domain, i['image'], token))
-                    f.write(url.read())
+                    req = Request("https://{}/{}?token={}".format(domain, i['image'], token))
+                    req.add_header("User-Agent", "Mozilla/5.0")
+                    f.write(urlopen(req).read())
         return imgPath
 
 def send_notification(message):
