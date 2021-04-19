@@ -27,6 +27,7 @@ if domain in [ "push.example.com", None]:
 
 token = config.get('server','token')
 
+ssl = "true" == config.get('server','ssl', fallback='false').lower()
 
 path = "{}/.cache/gotify-dunst".format(home)
 if not os.path.isdir(path):
@@ -37,13 +38,18 @@ def get_picture(appid):
     if os.path.isfile(path):
         return imgPath
     else:
-        req = Request("https://{}/application?token={}".format(domain, token))
+        if ssl:
+            protocol = 'https'
+        else:
+            protocol = 'http'
+
+        req = Request("{}://{}/application?token={}".format(protocol, domain, token))
         req.add_header("User-Agent", "Mozilla/5.0")
         r = json.loads(urlopen(req).read())
         for i in r:
             if i['id'] == appid:
                 with open(imgPath, "wb") as f:
-                    req = Request("https://{}/{}?token={}".format(domain, i['image'], token))
+                    req = Request("{}://{}/{}?token={}".format(protocol, domain, i['image'], token))
                     req.add_header("User-Agent", "Mozilla/5.0")
                     f.write(urlopen(req).read())
         return imgPath
@@ -69,7 +75,12 @@ def on_close(ws):
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("wss://{}/stream?token={}".format(domain, token),
+    if ssl:
+        protocol = 'wss'
+    else:
+        protocol = 'ws'
+
+    ws = websocket.WebSocketApp("{}://{}/stream?token={}".format(protocol, domain, token),
                               on_message = on_message,
                               on_error = on_error,
                               on_close = on_close)
