@@ -56,7 +56,7 @@ def get_picture(appid):
 
 def send_notification(message):
     m = json.loads(message)
-    if 1 <= m['priority'] <= 3:
+    if m['priority'] <= 3:
         subprocess.Popen(['notify-send', m['title'], m['message'], "-u", "low", "-i", get_picture(m['appid'])])
     if 4 <= m['priority'] <= 7:
         subprocess.Popen(['notify-send', m['title'], m['message'], "-u", "normal", "-i", get_picture(m['appid'])])
