@@ -57,11 +57,11 @@ def get_picture(appid):
 def send_notification(message):
     m = json.loads(message)
     if m['priority'] <= 3:
-        subprocess.Popen(['notify-send', m['title'], m['message'], "-u", "low", "-i", get_picture(m['appid'])])
+        subprocess.Popen(['notify-send', m['title'], m['message'], "-u", "low", "-i", get_picture(m['appid']), "-a", "Gotify"])
     if 4 <= m['priority'] <= 7:
-        subprocess.Popen(['notify-send', m['title'], m['message'], "-u", "normal", "-i", get_picture(m['appid'])])
+        subprocess.Popen(['notify-send', m['title'], m['message'], "-u", "normal", "-i", get_picture(m['appid']), "-a", "Gotify"])
     if m['priority'] > 7:
-        subprocess.Popen(['notify-send', m['title'], m['message'], "-u", "critical", "-i", get_picture(m['appid'])])
+        subprocess.Popen(['notify-send', m['title'], m['message'], "-u", "critical", "-i", get_picture(m['appid']), "-a", "Gotify"])
 
 def on_message(ws, message):
     print(message)
