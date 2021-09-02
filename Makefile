@@ -13,6 +13,7 @@ install:
 	install gotify-dunst.conf $(DESTDIR)$(PREFIX)/lib/gotify-dunst/
 
 	# files in /usr/share
+	install -d $(DESTDIR)$(PREFIX)/share/applications
 	install gotify-dunst.desktop $(DESTDIR)$(PREFIX)/share/applications
 	install -d $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/
 	install gotify-16.png $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/gotify.png
