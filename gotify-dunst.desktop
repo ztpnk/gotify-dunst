@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=gotify-dunst
+Exec=/usr/lib/gotify-dunst/main.py
+Icon=gotify
+# Hide application from user menu
+NoDisplay=true
