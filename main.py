@@ -5,7 +5,11 @@ import subprocess
 import os.path
 import configparser
 
-
+try:
+    import setproctitle
+    setproctitle.setproctitle("gotify-dunst")
+except:
+    pass
 
 home = os.path.expanduser('~')
 configpath = home+'/.config/gotify-dunst/gotify-dunst.conf'
