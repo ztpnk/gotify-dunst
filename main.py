@@ -68,14 +68,7 @@ def send_notification(message):
         subprocess.Popen(['notify-send', m['title'], m['message'], "-u", "critical", "-i", get_picture(m['appid']), "-a", "Gotify", "-h", "string:desktop-entry:gotify-dunst"])
 
 def on_message(ws, message):
-    print(message)
     send_notification(message)
-
-def on_error(ws, error):
-    print(error)
-
-def on_close(ws):
-    print("### closed ###")
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
@@ -85,7 +78,5 @@ if __name__ == "__main__":
         protocol = 'ws'
 
     ws = websocket.WebSocketApp("{}://{}/stream?token={}".format(protocol, domain, token),
-                              on_message = on_message,
-                              on_error = on_error,
-                              on_close = on_close)
+                              on_message = on_message)
     ws.run_forever()
