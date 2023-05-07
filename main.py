@@ -71,7 +71,6 @@ def on_message(ws, message):
     send_notification(message)
 
 if __name__ == "__main__":
-    websocket.enableTrace(True)
     if ssl:
         protocol = 'wss'
     else:
